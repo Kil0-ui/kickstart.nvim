@@ -1,12 +1,23 @@
 return {
   'ThePrimeagen/harpoon',
   branch = 'harpoon2',
-  dependencies = { 'nvim-lua/plenary.nvim' },
+  dependencies = { 'nvim-lua/plenary.nvim', { 'tpope/vim-fugitive' } },
+  commit = 'e76cb03', -- Fixes harpoon not remembering custom key lookup.
   config = function()
     local harpoon = require 'harpoon'
 
     -- REQUIRED
-    harpoon:setup()
+    harpoon:setup({
+      settings = {
+        key = function()
+          local key = vim.loop.cwd() .. '/' .. vim.fn["FugitiveHead"]();
+          if key == '' or key == nil then
+            return vim.loop.cwd()
+          end
+          return key
+        end
+      }
+    })
     -- REQUIRED
 
     vim.keymap.set('n', '<leader>a', function()
