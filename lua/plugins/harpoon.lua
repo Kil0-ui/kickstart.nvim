@@ -10,7 +10,8 @@ return {
     harpoon:setup({
       settings = {
         key = function()
-          local key = vim.loop.cwd() .. '/' .. vim.fn["FugitiveHead"]();
+          local key = vim.loop.cwd() .. '\\' .. vim.fn["FugitiveHead"]();
+          print(key)
           if key == '' or key == nil then
             return vim.loop.cwd()
           end
