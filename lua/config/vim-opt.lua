@@ -58,3 +58,5 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 30
 
 vim.opt.spell = true;
+
+vim.opt.swapfile = false;
