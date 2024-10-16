@@ -1,4 +1,3 @@
-
 vim.g.mapleader = '\\'
 vim.g.maplocalleader = '\\'
 
@@ -37,7 +36,7 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.opt.updatetime = 300
+vim.opt.updatetime = 200
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
