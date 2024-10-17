@@ -7,18 +7,17 @@ return {
     local harpoon = require 'harpoon'
 
     -- REQUIRED
-    harpoon:setup({
+    harpoon:setup {
       settings = {
         key = function()
-          local key = vim.loop.cwd() .. '\\' .. vim.fn["FugitiveHead"]();
-          print(key)
+          local key = vim.loop.cwd() .. '\\' .. vim.fn['FugitiveHead']()
           if key == '' or key == nil then
             return vim.loop.cwd()
           end
           return key
-        end
-      }
-    })
+        end,
+      },
+    }
     -- REQUIRED
 
     vim.keymap.set('n', '<leader>a', function()
@@ -42,10 +41,10 @@ return {
     end)
 
     -- Toggle previous & next buffers stored within Harpoon list
-    vim.keymap.set('n', '<C-S-P>', function()
+    vim.keymap.set('n', '<C-x>', function()
       harpoon:list():prev()
     end)
-    vim.keymap.set('n', '<C-S-N>', function()
+    vim.keymap.set('n', '<C-z>', function()
       harpoon:list():next()
     end)
   end,
