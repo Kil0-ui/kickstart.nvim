@@ -5,23 +5,15 @@ return {
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-path' },
     { 'hrsh7th/cmp-cmdline' },
-    { 'L3MON4D3/LuaSnip' },
     { 'onsails/lspkind.nvim' },
   },
   config = function()
-    local luasnip = require 'luasnip'
-    require('luasnip.loaders.from_vscode').lazy_load()
 
     local lspkind = require 'lspkind'
     local cmp = require 'cmp'
 
     cmp.setup {
       preselect = cmp.PreselectMode.None,
-      snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body) -- For `luasnip` users.
-        end,
-      },
       window = {
         documentation = cmp.config.window.bordered(),
       },
@@ -37,8 +29,6 @@ return {
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
           else
             fallback()
           end
@@ -46,8 +36,6 @@ return {
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
           else
             fallback()
           end
@@ -56,11 +44,11 @@ return {
 
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'luasnip', option = { show_autosnippets = true } }, -- For luasnip users.
       }, {
         { name = 'buffer' },
       }),
       formatting = {
+        expandable_indicator = true,
         fields = { 'abbr', 'kind', 'menu' },
         format = lspkind.cmp_format {
           mode = 'symbol_text', -- show only symbol annotations
@@ -68,7 +56,6 @@ return {
           menu = {
             buffer = '[Buffer]',
             nvim_lsp = '[LSP]',
-            luasnip = '[LuaSnip]',
             nvim_lua = '[Lua]',
             latex_symbols = '[Latex]',
           },
