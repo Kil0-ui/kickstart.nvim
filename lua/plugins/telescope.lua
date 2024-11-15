@@ -52,43 +52,35 @@ return { -- Fuzzy Finder (files, lsp, etc)
       -- },
       -- pickers = {}
       extensions = {
-        {
-          prompt_title = '[ Zoxide List ]',
-          -- Zoxide list command with score
-          list_command = 'zoxide query -ls',
+        zoxide = {
+          prompt_title = '[Zoxide List]',
           mappings = {
             default = {
               action = function(selection)
-                vim.cmd.edit(selection.path)
-              end,
-              after_action = z_utils.create_basic_command 'Explore',
-            },
-            ['ui-select'] = {
-              require('telescope.themes').get_dropdown(),
-            },
-            ['<C-f>'] = {
-              keepinsert = true,
-              action = function(selection)
-                builtin.find_files { cwd = selection.path }
-              end,
-            },
-            ['<C-t>'] = {
-              action = function(selection)
-                vim.cmd.tcd(selection.path)
+                vim.cmd.cd(selection.path)
               end,
               after_action = function(selection)
-                vim.cmd 'Explore'
-                print('Directory changed to ' .. selection.path)
+                print('Update to (' .. selection.z_score .. ') ' .. selection.path)
               end,
             },
+            ['<C-s>'] = {
+              action = function(selection)
+                vim.cmd.edit(selection.path)
+              end,
+            },
+            -- Opens the selected entry in a new split
+            ['<C-q>'] = { action = z_utils.create_basic_command 'split' },
           },
         },
       },
     }
 
     -- Enable Telescope extensions if they are installed
+    pcall(require('telescope').load_extension, 'zoxide')
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
+
+    vim.keymap.set('n', '<leader>cd', telescope.extensions.zoxide.list)
 
     -- See `:help telescope.builtin`
     vim.keymap.set('n', '<leader>pg', builtin.find_files, {})
