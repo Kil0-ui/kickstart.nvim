@@ -3,6 +3,7 @@ return {
   dependencies = {
     { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
     'williamboman/mason-lspconfig.nvim',
+    'saghen/blink.cmp',
     { 'j-hui/fidget.nvim', opts = {} },
   },
   opts = {
@@ -100,7 +101,7 @@ return {
         },
       },
     }
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local capabilities = require('blink.cmp').get_lsp_capabilities()
     local lspconfig = require 'lspconfig'
 
     local ensure_installed = {
