@@ -58,6 +58,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
             default = {
               action = function(selection)
                 vim.cmd.cd(selection.path)
+                vim.cmd 'ex .'
               end,
               after_action = function(selection)
                 print('Update to (' .. selection.z_score .. ') ' .. selection.path)

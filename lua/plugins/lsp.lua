@@ -108,11 +108,11 @@ return {
       'html',
       'gopls',
       'lua_ls',
-      'ts_ls',
     }
 
     require('mason-lspconfig').setup {
       ensure_installed = ensure_installed,
+      automatic_installation = true,
       handlers = {
         function(server_name)
           lspconfig[server_name].setup {
