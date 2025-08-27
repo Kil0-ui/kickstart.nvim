@@ -1,7 +1,7 @@
 return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
-  dependencies = { 'rafamadriz/friendly-snippets', { 'L3MON4D3/LuaSnip', version = 'v2.*' } },
+  dependencies = { 'rafamadriz/friendly-snippets' },
 
   -- use a release tag to download pre-built binaries
   version = '1.*',
@@ -35,16 +35,18 @@ return {
 
     -- (Default) Only show the documentation popup when manually triggered
     completion = {
-      documentation = { auto_show = true },
+      documentation = { auto_show = true, window = { border = 'padded' } },
       menu = { draw = { columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind', gap = 1 } } } },
     },
 
-    signature = { enabled = true },
+    signature = { enabled = true, window = { border = 'padded' } },
 
     cmdline = {
       keymap = {
         -- recommended, as the default keymap will only show and select the next item
         ['<Tab>'] = { 'show', 'accept' },
+        ['<Up>'] = { 'select_prev', 'fallback' },
+        ['<Down>'] = { 'select_next', 'fallback' },
       },
       completion = { menu = { auto_show = true } },
     },
@@ -52,8 +54,6 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      snippets = { preset = 'luasnip' },
-
       default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
 
