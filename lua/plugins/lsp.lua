@@ -101,6 +101,7 @@ return {
         },
       },
     }
+    require('luasnip.loaders.from_vscode').lazy_load()
     local capabilities = require('blink.cmp').get_lsp_capabilities()
     local lspconfig = require 'lspconfig'
 
