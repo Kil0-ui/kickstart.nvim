@@ -41,6 +41,9 @@ return {
     completion = {
       documentation = { auto_show = true, window = { border = 'padded' } },
       menu = { draw = { columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind', gap = 1 } } } },
+      ghost_text = {
+        enabled = true,
+      },
     },
 
     signature = { enabled = true, window = { border = 'padded' } },
